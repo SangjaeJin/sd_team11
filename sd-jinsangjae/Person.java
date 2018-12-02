@@ -12,4 +12,8 @@ public class Person {
 	public String getPwd() {
 		return pwd;
 	}
+	
+	public String getId() {
+		return id;
+	}
 }
