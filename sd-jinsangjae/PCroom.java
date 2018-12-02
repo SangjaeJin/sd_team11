@@ -61,7 +61,7 @@ public class PCroom {
 	}
 	
 	public boolean login(String id,String pwd) {
-		if(id.equals(owner_id) && pwd.equals(owner_pwd)){
+		if(id.equals(owner.getId()) && pwd.equals(owner.getPwd())){
 			ownerLoginState=true;
 			System.out.println("관리자 로그인 되었습니다");
 			return true;
