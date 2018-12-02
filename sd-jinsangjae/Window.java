@@ -9,7 +9,7 @@ enum MainFunction{ SEAT,REVIEW,EVENT,PAY,SIGNUP,LOGIN,LOGOUT,SEARCH}
 
 public class Window {
 
-	static HashMap<String, PCroom> pcroomList;
+	private static HashMap<String, PCroom> pcroomList;
 	
 	public static PCroom searchPCroom(String pcrName) {
 		if(pcroomList.get(pcrName) ==null)
