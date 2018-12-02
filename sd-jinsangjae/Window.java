@@ -95,6 +95,8 @@ public class Window {
 						}
 						
 						else if(choice -1 ==MainFunction.EVENT.ordinal()) {
+							
+							//이벤트 등록은 owner만 가능 
 							System.out.println("1.이벤트 조회");
 							if(currentPCroom.isOwnerLogin()==true)
 								System.out.println("2.이벤트 등록");
@@ -104,7 +106,7 @@ public class Window {
 							
 							if(select ==1)
 								currentPCroom.getEvents().show();
-							else if(select ==2) {
+							else if(select ==2 && currentPCroom.isOwnerLogin()==true) {
 								System.out.println("등록할 이벤트를 적으세요:");
 								String str= sc.nextLine();
 								currentPCroom.getEvents().write(str);
@@ -137,12 +139,9 @@ public class Window {
 						else if(choice -1==MainFunction.SEARCH.ordinal()) {
 							break;
 						}
-					
 				}
-			}
-			
+			}	
 		}
 		sc.close();
 	}
-
 }
