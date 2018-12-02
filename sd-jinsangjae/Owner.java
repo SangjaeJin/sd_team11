@@ -4,4 +4,11 @@ public class Owner extends Person{
 		super( id, pwd);
 	}
 	
+	public String getId() {
+		return super.getId();
+	}
+	
+	public String getPwd() {
+		return super.getPwd();
+	}
 }
