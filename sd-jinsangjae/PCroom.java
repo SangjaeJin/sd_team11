@@ -14,9 +14,7 @@ public class PCroom {
 	private boolean ownerLoginState;
 	private Events events;
 	private Reviews reviews;
-	private String owner_id=null;
-	private String owner_pwd=null;
-	
+	private Owner owner;
 	
 	public PCroom(String ownerid,String ownerpwd,String name,String location,int row ,int col,int computerNum) {
 		this.name=name;
@@ -29,8 +27,7 @@ public class PCroom {
 		this.loginState=this.ownerLoginState=false;
 		this.events= new Events();
 		this.reviews= new Reviews();
-		this.owner_id=ownerid;
-		this.owner_pwd= ownerpwd;
+		this.owner=new Owner(ownerid, ownerpwd);
 		
 		int a=0;
 		for(int i=0;i<row;i++) {
