@@ -45,8 +45,8 @@ public class Window {
 		System.out.println("관리자 모드로 실행하길 원하면 y 아니면 n");
 		String str= sc.nextLine();
 		if(str.equalsIgnoreCase("y")) {
-			String id= sc.nextLine();
-			String pwd=sc.nextLine();
+			System.out.println("아이디:"); String id= sc.nextLine();
+		    System.out.println("비밀번호:");String pwd=sc.nextLine();
 			
 			if( ! (id.equals(masterID) && pwd.equals(masterPwd)) )
 				System.out.println("아이디 혹은 비밀번호가 잘못되었습니다");
@@ -54,7 +54,34 @@ public class Window {
 				System.out.println("관리자 계정으로 로그인 되었습니다");
 				
 				while(true) {
+					System.out.println("1.PC방 등록 2.PC방 삭제");
+					int select=  sc.nextInt();
+					sc.nextLine();
 					
+					if(select ==1) {
+						System.out.println("owner id:"); String ownerid= sc.nextLine();
+						System.out.println("owner pwd:"); String ownerpwd= sc.nextLine();
+						System.out.println("pcroom name:"); String pcrName =sc.nextLine();
+						System.out.println("pcroom location:"); String location =sc.nextLine();
+						System.out.println("row:"); int row =sc.nextInt(); sc.nextLine();
+						System.out.println("col:"); int col=sc.nextInt(); sc.nextLine();
+						System.out.println("computer num:"); int comNum =sc.nextInt(); sc.nextLine();
+						
+						enrollPCroom(pcrName, new PCroom(new Owner(ownerid, ownerpwd),pcrName,location,row,col,comNum));
+						System.out.println("pc방이 등록되었습니다");
+					}
+					
+					else if(select ==2) {
+						System.out.println("삭제하려는 pc방의 이름을 입력하세요"); 
+						String pcrName= sc.nextLine();
+						if(deletePCroom(pcrName)==true)
+							System.out.println("해당 pc방이 삭제되었습니다");
+						else
+							System.out.println("해당 이름의 pc방이 없습니다");
+					}
+					
+					else
+						break;
 				}
 			}
 		}
