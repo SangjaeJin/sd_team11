@@ -182,8 +182,8 @@ public class Window {
 									currentPCroom.getEvents().show();
 								else if(select ==2 && currentPCroom.isOwnerLogin()==true) {
 									System.out.println("등록할 이벤트를 적으세요:");
-									String str= sc.nextLine();
-									currentPCroom.getEvents().write(str);
+									String event= sc.nextLine();
+									currentPCroom.getEvents().write(event);
 								}
 							}
 							
