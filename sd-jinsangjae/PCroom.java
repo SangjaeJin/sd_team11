@@ -16,7 +16,7 @@ public class PCroom {
 	private Reviews reviews;
 	private Owner owner;
 	
-	public PCroom(String ownerid,String ownerpwd,String name,String location,int row ,int col,int computerNum) {
+	public PCroom(Owner owner,String name,String location,int row ,int col,int computerNum) {
 		this.name=name;
 		this.location=location;
 		this.seats=new ArrayList<>();
@@ -27,8 +27,7 @@ public class PCroom {
 		this.loginState=this.ownerLoginState=false;
 		this.events= new Events();
 		this.reviews= new Reviews();
-		this.owner=new Owner(ownerid, ownerpwd);
-		
+		this.owner=owner;
 		int a=0;
 		for(int i=0;i<row;i++) {
 			for(int j=0;j<col;j++)
@@ -67,7 +66,7 @@ public class PCroom {
 			return true;
 		}
 		
-		else if( idAndCusts.get(id).getPwd().equals(pwd)) {
+		else if( idAndCusts.get(id).getPwd().equals(pwd)  ) {
 			loginState=true;
 			return true;
 		}
@@ -83,6 +82,7 @@ public class PCroom {
 	public boolean isOwnerLogin() {
 		return ownerLoginState;
 	}
+	
 	
 	public void signUp() {
 		Scanner sc =new Scanner(System.in);
@@ -121,5 +121,9 @@ public class PCroom {
 					System.out.println("X");
 			}
 		}
+	}
+	
+	public Customer getCustomer(String id) {
+		return idAndCusts.get(id);
 	}
 }

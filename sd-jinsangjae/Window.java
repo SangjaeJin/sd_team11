@@ -1,7 +1,11 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.swing.text.DateFormatter;
+import javax.xml.bind.DataBindingException;
 
 enum MainFunction{ SEAT,REVIEW,EVENT,PAY,SIGNUP,LOGIN,LOGOUT,SEARCH}
 
@@ -36,7 +40,7 @@ public class Window {
 		String search=null;
 		Scanner sc =new Scanner(System.in);
 		pcroomList = new HashMap<>();
-		
+		String currUser=null;
 		PCroom currentPCroom;
 		int choice;
 		String masterID = "super";
@@ -188,7 +192,34 @@ public class Window {
 							}
 							
 							else if(choice -1 ==MainFunction.PAY.ordinal()) {
-								
+								if(currentPCroom.isLogin() ==true) {
+									System.out.println("1.계좌이체 2.체크카드");
+									int select  = sc.nextInt();
+									sc.nextLine();
+									System.out.println("얼마를 결제하시겠습니까?");
+									int money;
+									
+									while(true) {
+										money =sc.nextInt();
+										sc.nextLine();
+										if(money<=0) {
+											System.out.println("양수만 가능합니다");
+											continue;
+										}
+										else
+											break;
+									}
+									
+									if( select ==1) {
+										System.out.println("계좌번호 입력하세요");
+										Customer account= currentPCroom.getCustomer(currUser);
+										Transfer tr= new Transfer(currUser, money, LocalDateTime.now(), );
+									}
+									
+									else {
+										
+									}
+								}
 							}
 							
 							else if(choice -1==MainFunction.SIGNUP.ordinal()) {
@@ -201,12 +232,15 @@ public class Window {
 								
 								if( currentPCroom.login(id, pwd) ==false) 
 									System.out.println("아이디 혹은 비밀번호가 일치하지 않습니다.");
-								else
+								else {
 									System.out.println("로그인 되었습니다.");
+									currUser=id;
+								}
 							}
 							
 							else if(choice-1 ==MainFunction.LOGOUT.ordinal()) {
 								currentPCroom.logout();
+								currUser=null;
 								System.out.println("로그아웃 되었습니다.");
 							}
 							
