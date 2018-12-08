@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +15,8 @@ enum MainFunction{ SEAT,REVIEW,EVENT,PAY,SIGNUP,LOGIN,LOGOUT,SEARCH}
 public class Window {
 
 	private static HashMap<String, PCroom> pcroomList;
+	private static final int currYear= 2018;
+	private static final int currMonth =12;
 	
 	public static PCroom searchPCroom(String pcrName) {
 		if(pcroomList.get(pcrName) ==null)
@@ -42,9 +45,13 @@ public class Window {
 		pcroomList = new HashMap<>();
 		String currUser=null;
 		PCroom currentPCroom;
-		int choice;
+		int choice,currPCnum=0;
 		String masterID = "super";
 		String masterPwd= "suepr";
+		
+		
+		enrollPCroom("엔코pc방", new PCroom(new Owner("홍길동","123"),"엔코pc방","대구광역시 북구 산격동",10,5,50));
+		
 		
 		System.out.println("관리자 모드로 실행하길 원하면 y 아니면 n");
 		String str= sc.nextLine();
@@ -65,7 +72,7 @@ public class Window {
 					if(select ==1) {
 						System.out.println("owner id:"); String ownerid= sc.nextLine();
 						System.out.println("owner pwd:"); String ownerpwd= sc.nextLine();
-						System.out.println("pcroom name:"); String pcrName =sc.nextLine();
+ 						System.out.println("pcroom name:"); String pcrName =sc.nextLine();
 						System.out.println("pcroom location:"); String location =sc.nextLine();
 						System.out.println("row:"); int row =sc.nextInt(); sc.nextLine();
 						System.out.println("col:"); int col=sc.nextInt(); sc.nextLine();
@@ -107,9 +114,9 @@ public class Window {
 				
 				else {
 					currentPCroom =pcroomList.get(search);
-					
+					System.out.println(search+":"+pcroomList.get(search).getLocation());
 						while(true) {
-							System.out.println(search+":"+pcroomList.get(search).getLocation());
+							//System.out.println(search+":"+pcroomList.get(search).getLocation());
 							System.out.println("1.자리조회or자리예약 2.후기작성 3.이벤트 조회 4.결제 5.회원가입 6.로그인 7.로그아웃 8.다른 pc방 검색");
 							
 							choice= sc.nextInt();
@@ -125,8 +132,8 @@ public class Window {
 								if(ans.equalsIgnoreCase("y")) {
 									if(currentPCroom.isLogin()==false) {
 										System.out.println("로그인 먼저 하세요");
-										String id =sc.nextLine();
-										String pwd =sc.nextLine();
+										System.out.println("id:"); String id =sc.nextLine();
+										System.out.println("pwd:"); String pwd =sc.nextLine();
 										
 										if(currentPCroom.login(id, pwd) ==false) {
 											System.out.println("아이디 혹은 비밀번호가 일치하지 않습니다.");
@@ -143,11 +150,68 @@ public class Window {
 										continue;
 									}
 									
+									
 									if(currentPCroom.getOnePc(pcNum).isEmpty()==true) {
 										// 결제기능 추가해야 됨  
+										currPCnum=pcNum;
+										System.out.println("언제부터 언제까지 예약하시겠습니까?");
+										System.out.println("시작 시간:"); int shour = sc.nextInt(); 
+										sc.nextLine();
 										
+										
+						
+										System.out.println("종료 시간:"); int ehour = sc.nextInt(); 
+										sc.nextLine();
+										
+										
+										if( ! currentPCroom.getOnePc(pcNum).setReservation(new Reservation(LocalDateTime.of(currYear, currMonth,LocalDate.now().getDayOfMonth(),shour,0),LocalDateTime.of(currYear, currMonth,LocalDate.now().getDayOfMonth(),ehour,0),currUser))) {
+											continue;
+										}
+										
+										System.out.println("1.계좌이체 2.체크카드");
+										int select  = sc.nextInt();
+										sc.nextLine();
+										
+										int money = 1000* (ehour-shour) ;
+										
+										if( select ==1) {
+											Customer cus= currentPCroom.getCustomer(currUser);
+											Transfer tr;
+											if(cus.getAccount()==null) {
+												System.out.println("계좌번호 입력하세요");
+												String acc =sc.nextLine();
+												tr= new Transfer(currUser, money, LocalDateTime.now(), acc);
+											}
+											else
+												tr= new Transfer(currUser, money, LocalDateTime.now(),cus.getAccount());
+											
+							
+											currentPCroom.addPayment(tr);
+											
+										}
+										
+										else {
+											Customer cus= currentPCroom.getCustomer(currUser);
+											Card cr;
+											if(cus.getCard()==null) {
+												System.out.println("카드번호 입력하세요");
+												String cardSerial =sc.nextLine();
+												cr= new Card(currUser, money, LocalDateTime.now(), cardSerial);
+											}
+											else
+												cr= new Card(currUser, money, LocalDateTime.now(),cus.getCard());
+											
+							
+											currentPCroom.addPayment(cr);
+											
+										}
 										
 										System.out.println("자리가 예약 되엇습니다");
+										continue;
+									}
+									
+									else{
+										System.out.println("자리가 비어있지 않습니다");
 										continue;
 									}
 								}
@@ -211,19 +275,47 @@ public class Window {
 									}
 									
 									if( select ==1) {
-										System.out.println("계좌번호 입력하세요");
-										Customer account= currentPCroom.getCustomer(currUser);
-										Transfer tr= new Transfer(currUser, money, LocalDateTime.now(), );
+										Customer cus= currentPCroom.getCustomer(currUser);
+										Transfer tr;
+										if(cus.getAccount()==null) {
+											System.out.println("계좌번호 입력하세요");
+											String acc =sc.nextLine();
+											tr= new Transfer(currUser, money, LocalDateTime.now(), acc);
+										}
+										else
+											tr= new Transfer(currUser, money, LocalDateTime.now(),cus.getAccount());
+										
+						
+										currentPCroom.addPayment(tr);
+										
 									}
 									
 									else {
+										Customer cus= currentPCroom.getCustomer(currUser);
+										Card cr;
+										if(cus.getCard()==null) {
+											System.out.println("카드번호 입력하세요");
+											String cardSerial =sc.nextLine();
+											cr= new Card(currUser, money, LocalDateTime.now(), cardSerial);
+										}
+										else
+											cr= new Card(currUser, money, LocalDateTime.now(),cus.getCard());
+										
+						
+										currentPCroom.addPayment(cr);
 										
 									}
+									System.out.println("결제가 완료되었습니다");
+									currentPCroom.getOnePc(currPCnum).clear();
 								}
+								
+								else
+									System.out.println("로그인 먼저 하세요");
 							}
 							
 							else if(choice -1==MainFunction.SIGNUP.ordinal()) {
 								currentPCroom.signUp();
+								continue;
 							}
 							
 							else if(choice -1==MainFunction.LOGIN.ordinal()) {

@@ -1,13 +1,22 @@
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+
 
 
 public class Reservation {
-	private DateTimeFormatter startTime,endTime;
+	private LocalDateTime startTime,endTime;
 	private String customerId ;
 	
-	public Reservation(DateTimeFormatter startTime,DateTimeFormatter endTime,String id) {
+	public Reservation(LocalDateTime startTime,LocalDateTime endTime,String id) {
 		this.startTime=startTime;
 		this.endTime=endTime;
 		this.customerId=id;
+	}
+	
+	public LocalDateTime getStartTime() {
+		return startTime;
+	}
+	
+	public LocalDateTime getEndTime() {
+		return endTime;
 	}
 }

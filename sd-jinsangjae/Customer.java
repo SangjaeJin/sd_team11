@@ -33,8 +33,8 @@ public class Customer extends Person {
 		this.card=card;
 	}
 	
-	public Payment payBill(int money) {
-		return new Payment(this.getId(), money, LocalDateTime.now() );
+	public Payment payBill(Payment pay) {
+		return pay;
 	}
 
 	public String getAccount() {

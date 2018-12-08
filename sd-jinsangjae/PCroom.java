@@ -15,6 +15,7 @@ public class PCroom {
 	private Events events;
 	private Reviews reviews;
 	private Owner owner;
+	private List<Payment> payments;
 	
 	public PCroom(Owner owner,String name,String location,int row ,int col,int computerNum) {
 		this.name=name;
@@ -27,11 +28,12 @@ public class PCroom {
 		this.loginState=this.ownerLoginState=false;
 		this.events= new Events();
 		this.reviews= new Reviews();
+		this.payments= new ArrayList<>();
 		this.owner=owner;
 		int a=0;
 		for(int i=0;i<row;i++) {
 			for(int j=0;j<col;j++)
-				seats.add(new Seat(a++,new Reservation(null,null, null)));
+				seats.add(new Seat(a++));
 		}
 	}
 	
@@ -48,7 +50,7 @@ public class PCroom {
 	}
 	
 	public Seat getOnePc(int num) {
-		return seats.get(num);
+		return seats.get(num-1);
 	}
 	
 	public Reviews getReviews() {
@@ -66,13 +68,15 @@ public class PCroom {
 			return true;
 		}
 		
-		else if( idAndCusts.get(id).getPwd().equals(pwd)  ) {
+		else if( idAndCusts.get(id) ==null || idAndCusts.get(id).getPwd().equals(pwd)==false )
+			return false;
+		
+		else if( idAndCusts.get(id).getPwd().equals(pwd) ) {
 			loginState=true;
 			return true;
 		}
 		
-		else
-			return false;
+		return false;
 	}
 	
 	public boolean isLogin() {
@@ -101,7 +105,8 @@ public class PCroom {
 		System.out.println("비밀번호:"); String pwd= sc.nextLine();
 		System.out.println("휴대폰번호:"); String phone= sc.nextLine();
 		
-		sc.close();
+		
+		//sc.close();
 		idAndCusts.put(name, new Customer(name,id,pwd,phone));
 		System.out.println("회원가입이 완료되었습니다");
 	}
@@ -112,18 +117,29 @@ public class PCroom {
 	
 	public void showSeatState() {
 		int a=0;
+		
 		for(int i=0;i<row;i++) {
+			for(int j=0;j<col;j++)
+				System.out.print(++a +" ");
+			System.out.println();
 			for(int j=0;j<col;j++) {
-				System.out.println(++a);
-				if(seats.get(a).isEmpty() ==true)
-					System.out.println("O");
+				if(seats.get(a-1).isEmpty() ==true)
+					System.out.print("O ");
 				else
-					System.out.println("X");
+					System.out.print("X ");
 			}
+			System.out.println();
 		}
 	}
 	
 	public Customer getCustomer(String id) {
 		return idAndCusts.get(id);
 	}
+	
+	public void addPayment(Payment pay) {
+		payments.add(pay);
+		this.owner.addPayment(pay);
+	}
+	
+	
 }
