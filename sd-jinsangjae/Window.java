@@ -47,10 +47,10 @@ public class Window {
 		PCroom currentPCroom;
 		int choice,currPCnum=0;
 		String masterID = "super";
-		String masterPwd= "suepr";
+		String masterPwd= "super";
 		
 		
-		enrollPCroom("엔코pc방", new PCroom(new Owner("홍길동","123"),"엔코pc방","대구광역시 북구 산격동",10,5,50));
+		enrollPCroom("엔코pc방", new PCroom(new Owner("nco","nco"),"엔코pc방","대구광역시 북구 산격동",10,5,50));
 		
 		
 		System.out.println("관리자 모드로 실행하길 원하면 y 아니면 n");
@@ -319,6 +319,12 @@ public class Window {
 							}
 							
 							else if(choice -1==MainFunction.LOGIN.ordinal()) {
+								
+								if(currentPCroom.isLogin() || currentPCroom.isOwnerLogin()) {
+									System.out.println("로그아웃 먼저 하세요");
+									continue;
+								}
+								
 								System.out.println("id:"); String id =sc.nextLine();
 								System.out.println("pwd:"); String pwd= sc.nextLine();
 								
