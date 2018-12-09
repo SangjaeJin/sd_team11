@@ -120,13 +120,13 @@ public class PCroom {
 		
 		for(int i=0;i<row;i++) {
 			for(int j=0;j<col;j++)
-				System.out.print(++a +" ");
+				System.out.print(++a +"\t");
 			System.out.println();
 			for(int j=0;j<col;j++) {
 				if(seats.get(a-1).isEmpty() ==true)
-					System.out.print("O ");
+					System.out.print("◻\t︎");
 				else
-					System.out.print("X ");
+					System.out.print("☒\t");
 			}
 			System.out.println();
 		}
