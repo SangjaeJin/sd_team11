@@ -8,6 +8,12 @@ public class Reviews {
 		this.reviews =new ArrayList<>();
 	}
 	public void show() {
+		
+		if(reviews.size()==0)
+		{
+			System.out.println("아직 리뷰가 존재하지 않습니다.");
+			return ;
+		}
 		for(int i=0;i<reviews.size();i++)
 			System.out.println(reviews.get(i));
 	}
