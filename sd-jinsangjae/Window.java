@@ -8,7 +8,7 @@ import java.util.Scanner;
 import javax.swing.text.DateFormatter;
 import javax.xml.bind.DataBindingException;
 
-enum MainFunction{ SEAT,REVIEW,EVENT,PAY,SIGNUP,LOGIN,LOGOUT,SEARCH}
+enum MainFunction{ SEAT,REVIEW,EVENT,PAY,SIGNUP,LOGIN,LOGOUT,SEARCH }
 
 
 
@@ -239,20 +239,26 @@ public class Window {
 							else if(choice -1 ==MainFunction.EVENT.ordinal()) {
 								
 								//이벤트 등록은 owner만 가능 
-								System.out.println("1.이벤트 조회");
 								if(currentPCroom.isOwnerLogin()==true)
+								{
+									System.out.println("1.이벤트 조회");
 									System.out.println("2.이벤트 등록");
-								
-								int select =sc.nextInt();
-								sc.nextLine();
-								
-								if(select ==1)
-									currentPCroom.getEvents().show();
-								else if(select ==2 && currentPCroom.isOwnerLogin()==true) {
-									System.out.println("등록할 이벤트를 적으세요:");
-									String event= sc.nextLine();
-									currentPCroom.getEvents().write(event);
+									int select =sc.nextInt();
+									sc.nextLine();
+									
+									if(select ==1)
+										currentPCroom.getEvents().show();
+									else if(select ==2 && currentPCroom.isOwnerLogin()==true) {
+										System.out.println("등록할 이벤트를 적으세요:");
+										String event= sc.nextLine();
+										currentPCroom.getEvents().write(event);
+									}
 								}
+								else
+								{
+									currentPCroom.getEvents().show();
+								}
+								
 							}
 							
 							else if(choice -1 ==MainFunction.PAY.ordinal()) {
@@ -306,6 +312,7 @@ public class Window {
 										
 									}
 									System.out.println("결제가 완료되었습니다");
+									
 									currentPCroom.getOnePc(currPCnum).clear();
 								}
 								
@@ -337,6 +344,12 @@ public class Window {
 							}
 							
 							else if(choice-1 ==MainFunction.LOGOUT.ordinal()) {
+								
+								if(!currentPCroom.isLogin() || !currentPCroom.isOwnerLogin())
+								{
+									System.out.println("이미 로그아웃 되어있습니다.");
+									continue;
+								}
 								currentPCroom.logout();
 								currUser=null;
 								System.out.println("로그아웃 되었습니다.");
