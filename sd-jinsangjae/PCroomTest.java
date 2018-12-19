@@ -11,6 +11,8 @@ public class PCroomTest {
 		assertEquals("name test","testPC",pc.getName());
 		assertEquals("location tets","daegu",pc.getLocation());
 		assertEquals("computer num test",24,pc.getComNum());
+		assertEquals("owner id test","testOwn",pc.getOwner().getId());
+		assertEquals("owner passwd test","testOwn",pc.getOwner().getPwd());
 	}
 
 }
