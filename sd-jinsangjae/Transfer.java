@@ -11,4 +11,8 @@ public class Transfer extends Payment {
 	}
 	
 
+	public String getAcc() {
+		return account;
+	}
+	
 }

@@ -11,6 +11,9 @@ public class Card extends Payment {
 		// TODO Auto-generated constructor stub
 		
 	}
-
+	
+	public String getCard() {
+		return cardSerial;
+	}
 	
 }
