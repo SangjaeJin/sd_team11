@@ -15,16 +15,21 @@ public class Seat {
 	}
 	
 	public boolean isEmpty() {
-//		if(reservation!=null)
-//			return true;
-//		else
-//			return false;
-		
 		if(fillState==false)
 			return true;
 		else
 			return false;
 			
+	}
+	
+	public int getSeatNum()
+	{
+		return seatNumber;
+	}
+	
+	public boolean getFillState()
+	{
+		return fillState;
 	}
 	
 	public void fill() {
