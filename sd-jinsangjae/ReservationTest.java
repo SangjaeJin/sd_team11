@@ -12,6 +12,7 @@ public class ReservationTest {
 		Reservation res = new Reservation(LocalDateTime.of(2018, 12, 7, 12, 30),LocalDateTime.of(2018, 12, 7, 13, 30),"test");
 		assertEquals("startTime","2018-12-07T12:30",res.getStartTime().toString());
 		assertEquals("endTime","2018-12-07T13:30",res.getEndTime().toString());
+		assertEquals("test res id","test",res.getId());
 	}
 
 }
