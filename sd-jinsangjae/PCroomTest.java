@@ -2,6 +2,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 public class PCroomTest {
 
 	@Test
@@ -30,5 +34,4 @@ public class PCroomTest {
 		assertEquals("owner id test","testOwn3",pc.getOwner().getId());
 		assertEquals("owner passwd test","testOwn3",pc.getOwner().getPwd());
 	}
-
 }

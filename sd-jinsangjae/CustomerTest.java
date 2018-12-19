@@ -29,5 +29,14 @@ public class CustomerTest {
 		assertEquals("pwd check", "555",cus.getPwd());
 		assertEquals("phone check:","010-3213-3213",cus.getPhone());
 		
+	
+		cus= new Customer("박철수","park122","152","010-2244-2244","123-555-777777","4321-4321-1233-1233");
+		assertEquals("account check:", "123-555-777777",cus.getAccount());
+		assertEquals("card check:","4321-4321-1233-1233",cus.getCard());
+		assertEquals("name check:","박철수", cus.getName());
+		assertEquals("id check:","park122", cus.getId());
+		assertEquals("pwd check", "152",cus.getPwd());
+		assertEquals("phone check:","010-2244-2244",cus.getPhone());
+		
 	}
 }
