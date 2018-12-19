@@ -13,6 +13,16 @@ public class ReservationTest {
 		assertEquals("startTime","2018-12-07T12:30",res.getStartTime().toString());
 		assertEquals("endTime","2018-12-07T13:30",res.getEndTime().toString());
 		assertEquals("test res id","test",res.getId());
+		
+		res = new Reservation(LocalDateTime.of(2018, 12,13,2,30),LocalDateTime.of(2018, 12,13,3,30),"test2");
+		assertEquals("startTime","2018-12-13T02:30",res.getStartTime().toString());
+		assertEquals("endTime","2018-12-13T03:30",res.getEndTime().toString());
+		assertEquals("test res id","test2",res.getId());
+		
+		res = new Reservation(LocalDateTime.of(2018, 11,29,3,30),LocalDateTime.of(2018, 11,29,5,30),"test3");
+		assertEquals("startTime","2018-11-29T03:30",res.getStartTime().toString());
+		assertEquals("endTime","2018-11-29T05:30",res.getEndTime().toString());
+		assertEquals("test res id","test3",res.getId());
 	}
 
 }
