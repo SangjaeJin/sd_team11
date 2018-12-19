@@ -24,6 +24,14 @@ public class Customer extends Person {
 	}
 	
 	
+	public String getName() {
+		return name;
+	}
+	
+	public String getPhone() {
+		return phone;
+	}
+	
 	
 	public  void setAccount(String account) {
 		this.account=account;

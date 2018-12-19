@@ -12,5 +12,15 @@ public class Payment {
 		this.date=date;
 	}
 	
+	public String getCusId() {
+		return customerId;
+	}
 	
+	public int getBills() {
+		return bills;
+	}
+	
+	public LocalDateTime getDate() {
+		return date;
+	}
 }
