@@ -37,6 +37,11 @@ public class PCroom {
 		}
 	}
 	
+	public Owner getOwner()
+	{
+		return owner;
+	}
+	
 	public int getComNum() {
 		return computerNum;
 	}
