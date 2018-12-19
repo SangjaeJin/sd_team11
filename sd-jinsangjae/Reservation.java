@@ -11,7 +11,10 @@ public class Reservation {
 		this.endTime=endTime;
 		this.customerId=id;
 	}
-	
+	public String getId()
+	{
+		return customerId;
+	}
 	public LocalDateTime getStartTime() {
 		return startTime;
 	}
