@@ -19,7 +19,7 @@ public class TransferTest {
 		
 		assertEquals("id :", "kang123",tr.getCusId());
 		assertEquals("bills :", 5000,tr.getBills());
-		assertEquals("dateAndTime :","2018-02-11T02:12",tr.getDate() );
+		assertEquals("dateAndTime :","2018-02-11T02:12",tr.getDate().toString() );
 		assertEquals("card serial:","1111-1111-1111-1111",tr.getAcc());
 	}
 }
