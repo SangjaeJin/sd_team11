@@ -345,7 +345,7 @@ public class Window {
 							
 							else if(choice-1 ==MainFunction.LOGOUT.ordinal()) {
 								
-								if(!currentPCroom.isLogin() || !currentPCroom.isOwnerLogin())
+								if(!currentPCroom.isLogin() && !currentPCroom.isOwnerLogin())
 								{
 									System.out.println("이미 로그아웃 되어있습니다.");
 									continue;
